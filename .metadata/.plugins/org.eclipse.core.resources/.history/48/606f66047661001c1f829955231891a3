@@ -1,0 +1,102 @@
+package org.o7planning.sbcrudrestful.controller;
+
+import java.util.List;
+
+import org.o7planning.sbcrudrestful.dao.userDAO;
+import org.o7planning.sbcrudrestful.model.user;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+
+public class MainRESTController {
+
+    @Autowired
+    private userDAO userDAO;
+
+    @RequestMapping("/")
+    @ResponseBody
+    public String welcome() {
+        return "Welcome to RestTuserlate Example.";
+    }
+
+    // URL:
+    // http://localhost:8080/SomeContextPath/users
+    // http://localhost:8080/SomeContextPath/users.xml
+    // http://localhost:8080/SomeContextPath/users.json
+    @RequestMapping(value = "/users", //
+            method = RequestMethod.GET, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public List<user> getusers() {
+        List<user> list = userDAO.getAllusers();
+        return list;
+    }
+
+    // URL:
+    // http://localhost:8080/SomeContextPath/user/{userNo}
+    // http://localhost:8080/SomeContextPath/user/{userNo}.xml
+    // http://localhost:8080/SomeContextPath/user/{userNo}.json
+    @RequestMapping(value = "/user/{userNo}", //
+            method = RequestMethod.GET, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public user getuser(@PathVariable("userNo") String userNo) {
+        return userDAO.getuser(userNo);
+    }
+
+    // URL:
+    // http://localhost:8080/SomeContextPath/user
+    // http://localhost:8080/SomeContextPath/user.xml
+    // http://localhost:8080/SomeContextPath/user.json
+
+    @RequestMapping(value = "/user", //
+            method = RequestMethod.POST, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public user adduser(@RequestBody user user) {
+
+        System.out.println("(Service Side) Creating user: " + user.getuserNo());
+
+        return userDAO.adduser(user);
+    }
+
+    // URL:
+    // http://localhost:8080/SomeContextPath/user
+    // http://localhost:8080/SomeContextPath/user.xml
+    // http://localhost:8080/SomeContextPath/user.json
+    @RequestMapping(value = "/user", //
+            method = RequestMethod.PUT, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public user updateuser(@RequestBody user user) {
+
+        System.out.println("(Service Side) Editing user: " + user.getuserNo());
+
+        return userDAO.updateuser(user);
+    }
+
+    // URL:
+    // http://localhost:8080/SomeContextPath/user/{userNo}
+    @RequestMapping(value = "/user/{userNo}", //
+            method = RequestMethod.DELETE, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public void deleteuser(@PathVariable("userNo") String userNo) {
+
+        System.out.println("(Service Side) Deleting user: " + userNo);
+
+        userDAO.deleteuser(userNo);
+    }
+
+}

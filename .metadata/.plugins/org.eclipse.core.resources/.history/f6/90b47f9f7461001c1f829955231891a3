@@ -1,0 +1,5 @@
+package org.o7planning.sbcrudrestful.model;
+
+public class User {
+
+}
