@@ -1,5 +1,0 @@
-package org.o7planning.sbcrudrestful.dao;
-
-public class UserDAO {
-
-}

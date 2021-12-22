@@ -1,5 +1,0 @@
-package org.o7planning.sbcrudrestful.controller;
-
-public class MainRESTController {
-
-}
