@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="phrasal_verb")
+@Table(name = "phrasal_verb")
 public class PhrasalVerb {
 	private Integer id;
 	private String pverb;
@@ -27,7 +27,6 @@ public class PhrasalVerb {
 		this.example = example;
 	}
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
